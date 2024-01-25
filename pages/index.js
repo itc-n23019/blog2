@@ -1,13 +1,16 @@
-import Hero from 'components/hero';
+import Container from 'components/container'
+import Hero from 'components/hero'
 
 const Home = () => {
   return (
     <>
-        <Hero 
+<Container>
+	  <Hero 
 	  title="CUBE"
-	  subtitlte="アウトプットしていくサイト"
+	  subtitle="アウトプットしていくサイト"
 imageOn
 	  />
+	  </Container>
     </>
   );
 };
