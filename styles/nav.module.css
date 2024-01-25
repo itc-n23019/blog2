@@ -1,6 +1,6 @@
   .list {
     display: flex;
-    gap: 2px;
+    gap: 2em;
   }
 @media (hover: hover) {
   .list a:hover {

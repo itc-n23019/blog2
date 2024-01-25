@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <footer className={styles.wrapper}>
       <Container>
-        <div className={styles.flexcontainer}>
+        <div className={styles.flexContainer}>
           <Logo />
           [ソーシャル]
         </div>
