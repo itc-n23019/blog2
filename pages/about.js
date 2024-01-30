@@ -4,12 +4,19 @@ import PostBody from 'components/post-body'
 import Contact from 'components/contact'
 import { Twocolumn, TwocolumnMain, TwocolumnSidebar } from 'components/two-column'
 import Image from 'next/image'
+import Meta from 'components/meta'
 import eyecatch from 'images/about.jpg'
 const About = () => {
   return (
     <>
       <Container>
-        <Hero title='About' subtitle='About development activities' />
+       <Meta  pageTitle="アバウト"
+        pageDesc="About development activities"
+        pageImg={eyecatch.src}
+        pageImgW={eyecatch.width}
+        pageImgH={eyecatch.height}
+/> 
+	  <Hero title='About' subtitle='About development activities' />
 
 	   <Image
   src={eyecatch}
@@ -59,3 +66,4 @@ const About = () => {
 }
 
 export default About
+

@@ -1,11 +1,12 @@
 import Container from 'components/container'
 import Hero from 'components/hero'
+import Meta from 'components/meta'
 
 const Home = () => {
   return (
     <>
 <Container>
-	  <Hero 
+<Meta />	  <Hero 
 	  title="CUBE"
 	  subtitle="アウトプットしていくサイト"
 imageOn
