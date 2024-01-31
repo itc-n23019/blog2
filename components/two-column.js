@@ -1,14 +1,14 @@
 import styles from 'styles/two-column.module.css'
 
-const TwoColumn = ({ children }) => {
+const Twocolumn = ({ children }) => {
   return <div className={styles.flexContainer}>{children}</div>
 }
 
-const TwoColumnMain = ({ children }) => {
+const TwocolumnMain = ({ children }) => {
   return <div className={styles.main}>{children}</div>
 }
 
-const TwoColumnSidebar = ({ children }) => {
+const TwocolumnSidebar = ({ children }) => {
   return <div className={styles.sidebar}>{children}</div>
 }
-export { TwoColumn, TwoColumnMain, TwoColumnSidebar }
+export { Twocolumn, TwocolumnMain, TwocolumnSidebar }

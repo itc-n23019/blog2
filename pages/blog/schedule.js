@@ -8,9 +8,9 @@ import { extractText } from 'lib/extract-text'
 import Meta from 'components/meta'
 
 import {
-  TwoColumn,
-  TwoColumnMain,
-  TwoColumnSidebar
+  Twocolumn,
+  TwocolumnMain,
+  TwocolumnSidebar
 } from 'components/two-column'
 
 import Image from 'next/image'
@@ -46,16 +46,16 @@ const Schedule = ({
             priority
           />
         </figure>
-        <TwoColumn>
-          <TwoColumnMain>
+        <Twocolumn>
+          <TwocolumnMain>
             <PostBody>
               <ConvertBody contentHTML={content} />
             </PostBody>
-          </TwoColumnMain>
-          <TwoColumnSidebar>
+          </TwocolumnMain>
+          <TwocolumnSidebar>
             <PostCategories categories={categories} />
-          </TwoColumnSidebar>
-        </TwoColumn>
+          </TwocolumnSidebar>
+        </Twocolumn>
       </article>
     </Container>
   )
