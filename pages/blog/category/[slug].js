@@ -8,8 +8,9 @@ import { getPlaiceholder } from 'plaiceholder'
 import { eyecatchLocal } from 'lib/constants'
 export const getStaticPaths = async () => {
   const allCats = await getAllCategories();
+  const uniquePaths = [...new Set(allCats.map(({ slug }) => `/blog/category/${slug}`))];
   return {
-    paths: allCats.map(({ slug }) => `/blog/category/${slug}`),
+    paths: uniquePaths,
     fallback: false,
   };
 };
