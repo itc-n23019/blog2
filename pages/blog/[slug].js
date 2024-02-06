@@ -1,12 +1,12 @@
-import { getPostBySlug } from '../../lib/api'
+import { getPostBySlug,getAllSlugs } from 'lib/api'
 import Container from 'components/container'
 import PostHeader from 'components/post-header'
 import PostBody from 'components/post-body'
 import ConvertBody from 'components/convert-body'
 import PostCategories from 'components/post-categories'
+import Pagination from 'components/pagination'
 import { extractText } from 'lib/extract-text'
 import Meta from 'components/meta'
-import { eyecatchLocal } from 'lib/constants'
 
 import {
   Twocolumn,
@@ -15,15 +15,20 @@ import {
 } from 'components/two-column'
 
 import Image from 'next/image'
+import { eyecatchLocal } from 'lib/constants'
 import { getPlaiceholder } from 'plaiceholder'
+import { prevNextPost } from 'lib/prev-next-post'
 
-const Schedule = ({
+const Post = ({
   title,
   publish,
   content,
   eyecatch,
   categories,
-  description
+  description,
+	  prevPost,
+  nextPost,
+
 }) => {
   return (
     <Container>
@@ -39,6 +44,7 @@ const Schedule = ({
         <PostHeader title={title} subtitle='Blog Article' publish={publish} />
         <figure>
           <Image
+            key={eyecatch.url}
             src={eyecatch.url}
             alt=''
             layout='responsive'
@@ -48,7 +54,8 @@ const Schedule = ({
             priority
       placeholder="blur"
             blurDataURL={eyecatch.blurDataURL}
-          />
+
+	  />
         </figure>
         <Twocolumn>
           <TwocolumnMain>
@@ -60,20 +67,42 @@ const Schedule = ({
             <PostCategories categories={categories} />
           </TwocolumnSidebar>
         </Twocolumn>
-      </article>
+	         <Pagination
+          prevText={prevPost.title}
+          prevUrl={`/blog/${prevPost.slug}`}
+          nextText={nextPost.title}
+          nextUrl={`/blog/${nextPost.slug}`}
+        />
+ 
+	  </article>
     </Container>
   )
 }
 
-const getStaticProps = async () => {
-  const slug = 'micro'
+const getStaticPaths = async () => {
+  const allSlugs = await getAllSlugs();
+  return {
+    paths: allSlugs.map(({ slug }) => `/blog/${slug}`),
+    fallback: false,
+  };
+};
+
+const getStaticProps = async (context) => {
+  const slug =context.params.slug
+ 
 
   const post = await getPostBySlug(slug)
 
   const description = extractText(post.content)
   const eyecatch = post.eyecatch ?? eyecatchLocal
+
   const { base64 } = await getPlaiceholder(eyecatch.url)
   eyecatch.blurDataURL = base64
+
+  const allSlugs = await getAllSlugs()
+  const [prevPost, nextPost] = prevNextPost(allSlugs, slug)
+
+
 
   return {
     props: {
@@ -82,9 +111,12 @@ const getStaticProps = async () => {
       content: post.content,
       eyecatch: eyecatch,
       categories: post.categories,
-      description: description
+      description: description,
+     prevPost: prevPost,
+      nextPost: nextPost,
+
     }
   }
 }
 
-export { Schedule as default, getStaticProps }
+export { Post as default, getStaticProps, getStaticPaths }
